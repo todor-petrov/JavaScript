@@ -243,3 +243,53 @@
 //         }
 //     }
 // }
+
+
+// // // More Exercise
+
+// // 01. Sort Numbers
+// function sortNumbers(...numbers) {
+//     let sorted = numbers.sort((aNum, bNum) => {
+//         let result = bNum - aNum;
+//         return result;
+//     })
+//     console.log(sorted.join('\n'))
+// }
+
+// // 02. English Name of the Last Digit
+// function englishNameOfTheLastDigit(number) {
+//     if (number) {
+//     let numberAsString = number.toString().split('');
+//     let lastDigit = numberAsString.pop();
+//     let numbersNames = {'0': 'zero', '1': 'one', '2': 'two', '3': 'three', '4': 'four',
+//                         '5': 'five', '6': 'six', '7': 'seven', '8': 'eight', '9': 'nine'};
+//     console.log(numbersNames[lastDigit])
+//     }
+// }
+
+// // 03. Next Day
+// function nextDay(year, month, day) {
+//     let date = new Date(year, month - 1, day);
+//     date.setDate(date.getDate() + 1);
+//     let newYear = date.getFullYear();
+//     let newMonth = date.getMonth() + 1;
+//     let newDate = date.getDate();
+//     console.log(`${newYear}-${newMonth}-${newDate}`);
+// }
+
+// // 04. Reverse String
+// function reverseString(line) {
+//     let result = line.split('').reverse().join('');
+//     console.log(result)
+// }
+
+// // 05. Distance between Points
+// function distanceBetweenPoints(x1, y1, x2, y2) {
+//     let y = x2 - x1;
+//     let x = y2 - y1;
+//     console.log(Math.sqrt(x * x + y * y));
+// }function distanceBetweenPoints(x1, y1, x2, y2) {
+//     let y = x2 - x1;
+//     let x = y2 - y1;
+//     console.log(Math.sqrt(x * x + y * y));
+// }
