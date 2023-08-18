@@ -155,3 +155,226 @@ function songsFunc(data) {
     }
     console.log(result.join('\n'));
 }
+
+
+// Exercises
+
+// 01. Employees
+function employees(names) {
+    let data = {};
+    for (let i = 0; i < names.length; i++) {
+        data[names[i]] = names[i].split('').length;
+    }
+    for (const [key, value] of Object.entries(data)) {
+        console.log(`Name: ${key} -- Personal Number: ${value}`);
+    }
+}
+
+// 02. Towns
+function towns(input) {
+    let data = [];
+    for (let line of input) {
+        line = line.split(' | ');
+        data.push({ town: line[0], latitude: Number(line[1]).toFixed(2), longitude: Number(line[2]).toFixed(2) });
+    }
+    data.forEach(item => console.log(item));
+}
+
+// 03. Store Provision
+function storeProvision(stockProducts, orderedProducts) {
+    let stock = {}; let order = {};
+    for (let i = 1; i < stockProducts.length; i += 2) {
+        if (!stock.hasOwnProperty(stockProducts[i - 1])) {
+            stock[stockProducts[i - 1]] = 0;
+        }
+        stock[stockProducts[i - 1]] += Number(stockProducts[i]);
+    }
+
+    for (let i = 1; i < orderedProducts.length; i += 2) {
+        if (!order.hasOwnProperty(orderedProducts[i - 1])) {
+            order[orderedProducts[i - 1]] = 0;
+        }
+        order[orderedProducts[i - 1]] += Number(orderedProducts[i]);
+    }
+
+    for (let [product, quantity] of Object.entries(order)) {
+        if (stock.hasOwnProperty(product)) {
+            stock[product] += Number(quantity);
+        }
+        else {
+            stock[product] = Number(quantity);
+        }
+    }
+    for (let [p, q] of Object.entries(stock)) {
+        console.log(`${p} -> ${q}`);
+    }
+}
+
+// 04. Movies
+function movies(data) {
+    let moviesData = [];
+    for (let i = 0; i < data.length; i++) {
+        let element = data[i]; let movieInfo = {}; let movieName;
+        if (element.includes('addMovie')) {
+            let movieName = element.replace('addMovie ', '');
+            movieInfo['name'] = movieName;
+            moviesData.push(movieInfo);
+        }
+        else if (element.includes('directedBy')) {
+            element = element.split(' directedBy ');
+            movieName = element[0];
+            let director = element[1];
+            for (let j = 0; j < moviesData.length; j++) {
+                if (moviesData[j]['name'] === movieName) {
+                    moviesData[j]['director'] = director;
+                }
+            }
+        }
+        else if (element.includes('onDate')) {
+            element = element.split(' onDate ');
+            movieName = element[0]; let date = element[1];
+            for (let k = 0; k < moviesData.length; k++) {
+                if (moviesData[k]['name'] === movieName) {
+                    moviesData[k]['date'] = date;
+                }
+            }
+        }
+    }
+    moviesData.forEach(element => {
+        if (element.hasOwnProperty('name') &&
+            element.hasOwnProperty('director') &&
+            element.hasOwnProperty('date')) {
+            console.log(JSON.stringify(element));
+        }
+    });
+}
+
+// 05. Inventory
+function inventory(data) {
+    let register = [];
+    data.forEach(element => {
+        let info = element.split(' / '); let hero = {};
+        hero['Hero'] = info[0]; hero['level'] = info[1]; hero['items'] = info[2];
+        register.push(hero);
+    });
+    let sortedRegister = register.sort((a, b) => a['level'] - b['level']);
+
+    sortedRegister.forEach(element => {
+        for (const [key, value] of Object.entries(element)) {
+            if (key === 'Hero') {
+                console.log(`${key}: ${value}`);
+            }
+            else {
+                console.log(`${key} => ${value}`);
+            }
+        }
+    });
+}
+
+// 06. Word Tracker
+function wordsTracker(input) {
+    let expression = input.shift();
+    let result = {};
+    let words = expression.split(' ');
+    for (let i = 0; i < words.length; i++) {
+        result[words[i]] = 0;
+    }
+    for (let j = 0; j < input.length; j++) {
+        if (result.hasOwnProperty(input[j])) {
+            result[input[j]] += 1;
+        }
+    }
+    let sortedResult = Object.entries(result).sort((a, b) => b[1] - a[1]);
+    for (const element of sortedResult) {
+        console.log(`${element[0]} - ${element[1]}`)
+    }
+}
+
+// 07. Odd Occurrences
+function oddOccurrences(input) {
+    let line = input.toLowerCase().split(' '); let resultObject = {};
+    for (let el of line) {
+        if (!resultObject.hasOwnProperty(el)) {
+            resultObject[el] = 0;
+        }
+        resultObject[el] += 1;
+    }
+    let result = [];
+    Object.entries(resultObject).forEach(key => {
+        if (key[1] % 2 !== 0) {
+            result.push(key[0]);
+        }
+    })
+    console.log(result.join(' '));
+}
+
+// 08. Piccolo
+function piccolo(input) {
+    let obj = {}
+
+    for (let element of input) {
+        let [direction, carNumber] = element.split(`, `)
+        if (direction == `IN`) {
+            if (!obj.hasOwnProperty(carNumber)) {
+                obj[carNumber] = null
+            }
+        } else if (direction == `OUT`) {
+            delete obj[carNumber]
+        }
+
+    }
+
+    let sorted = Object.keys(obj)
+    if (sorted.length >= 1) {
+        sorted = sorted.sort()
+        for (let element of sorted) {
+            console.log(element)
+        }
+    } else {
+        console.log(`Parking Lot is Empty`)
+    }
+}
+
+// 09. Make a Dictionary
+function dictionary(input) {
+    let line = [...input]; let words = [];
+    let dictBase = [];
+    for (let i = 0; i < line.length; i++) {
+        let element = JSON.parse(line[i]);
+        let word = Object.keys(element)[0];
+        let definition = Object.values(element)[0];
+        let dataBase = {};
+        if (!words.includes(word)) {
+            words.push(word);
+            dataBase['Term'] = word;
+            dataBase['Definition'] = definition;
+            dictBase.push(dataBase);
+        }
+        else {
+            let index = dictBase.findIndex(obj => obj.Term === word);
+            dictBase[index].Definition = definition;
+        }
+    }
+    let sortedDictionary = dictBase.sort((a, b) => a.Term.localeCompare(b.Term));
+    for (let a = 0; a < sortedDictionary.length; a++) {
+        let result = [];
+        for (let [key, value] of Object.entries(sortedDictionary[a])) {
+            result.push(`${key}: ${value}`);
+        }
+        console.log(result.join(' => '));
+    }
+}
+
+// 10. Class Vehicle
+class Vehicle {
+        constructor(type, model, parts, fuel) {
+            this.type = type;
+            this.model = model;
+            this.parts = parts;
+            this.parts.quality = parts.engine * parts.power;
+            this.fuel = fuel;
+        }
+        drive(fuelLoss) {
+            this.fuel -= fuelLoss;
+        }
+    }
