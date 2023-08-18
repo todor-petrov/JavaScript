@@ -378,3 +378,425 @@ class Vehicle {
             this.fuel -= fuelLoss;
         }
     }
+
+
+
+// More Exercises
+
+// 01. Class Storage
+class Storage {
+    constructor(capacity) {
+        this.capacity = capacity;
+        this.storage = [];
+    }
+
+    get totalCost() {
+        return this.storage.reduce((acc, el) => {return acc + el.price * el.quantity}, 0);
+    }
+
+    addProduct(product) {
+        this.storage.push(product);
+        this.capacity -= product.quantity;
+        return;
+    }
+
+    getProducts() {
+        let output = [];
+        this.storage.forEach(product => {
+            output.push(JSON.stringify(product));
+        })
+        return output.join('\n');
+    }
+}
+
+// 02. Catalogue
+function orderedCatalogue(array){
+    let catalogue = [];
+    for (let i = 0; i < array.length; i++) {
+        let elements = array[i].split(' : ');
+        let product = {
+            name: elements[0],
+            price: parseFloat(elements[1])
+        };
+        catalogue.push(product);
+    }
+    // catalogue.sort((a,b) => a.name > b.name ? 1 : -1);
+    catalogue.sort((a,b) => a.name.localeCompare(b.name));
+
+    let currentLetter = '';
+    for (const product of catalogue) {
+        if (product.name.charAt(0).toUpperCase() === currentLetter){
+            console.log(`  ${product.name}: ${product.price}`)
+        }else {
+            currentLetter = product.name.charAt(0).toUpperCase();
+            console.log(currentLetter);
+            console.log(`  ${product.name}: ${product.price}`)
+
+        }
+    }
+}
+
+// 03. Class Laptop
+class Laptop {
+        constructor(info, quality) {
+            this.info = info;
+            this.quality = quality;
+            this.producer = info.producer;
+            this.age = info.age;
+            this.brand = info.brand;
+            this.isOn = false;
+        }
+        turnOn () {
+            this.isOn = true;
+            this.quality -= 1;
+        }
+        turnOff () {
+            this.isOn = false;
+            this.quality -= 1;
+        }
+        showInfo () {
+            return JSON.stringify(this.info);
+        }
+        get price() {
+            return (800 - (this.age * 2) + (this.quality * 0.5))};
+    }
+
+// 04. Flight Schedule
+function flightSchedule(input) {
+
+    let sectorArray = input[0];
+    let cancelledArray = input[1];
+    let checkStatus = input[2];
+
+    let flightsData = [];
+    for (let element of sectorArray) {
+
+        let number = element.substring(0, element.indexOf(' '));
+        let town = element.substring(element.indexOf(' ') + 1);
+
+        let currentFlight = {};
+        currentFlight['FlightID'] = number;
+        currentFlight['Destination'] = town;
+        currentFlight['Status'] = 'Ready to fly';
+        flightsData.push(currentFlight);
+    }
+
+    let changedFlights = [];
+    for (let element of cancelledArray) {
+        let number = element.split(' ')[0];
+        changedFlights.push(number);
+    }
+
+    for (let element of flightsData) {
+        if (changedFlights.includes(element.FlightID)) {
+            element.Status = 'Cancelled';
+        }
+    }
+
+    for (let element of flightsData) {
+        if (checkStatus[0] === element.Status) {
+            console.log(`{ Destination: '${element.Destination}', Status: '${element.Status}' }`)
+        }
+    }
+}
+
+// 05. School Register
+function schoolRegister(input) {
+
+    let register = []; let data = [];
+
+    for (let i of input) {
+        i = i.split(', ');
+        let currentData = {};
+        for (let j of i) {
+            j = j.split(': ');
+            currentData[j[0]] = j[1];
+        }
+        data.push(currentData);
+    }
+
+    for (let a of data) {
+        if (a['Graduated with an average score'] >= 3.00) {
+            let currentStudent = {};
+            let checkGrade = obj => Number(obj['Grade']) === Number(a['Grade']) + 1;
+            if (!register.some(checkGrade)) {
+                currentStudent['Grade'] = Number(a['Grade']) + 1;
+                currentStudent['List of students'] = [a['Student name']];
+                currentStudent['Average annual score from last year'] = [Number([a['Graduated with an average score']])];
+                register.push(currentStudent)
+            }
+            else {
+                let index = register.findIndex(r => r['Grade'] === Number(a['Grade']) + 1);
+                register[index]['List of students'].push(a['Student name']);
+                register[index]['Average annual score from last year'].push(Number([a['Graduated with an average score']]));
+            }
+        }
+    }
+
+    register = register.sort((a,b) => a['Grade'] - b['Grade']);
+
+    for (let grade of register) {
+        console.log(`${grade['Grade']} Grade`);
+        console.log(`List of students: ${grade['List of students'].join(', ')}`);
+        let sum = grade['Average annual score from last year'].reduce((a, b) => a + b, 0);
+        let length = grade['Average annual score from last year'].length;
+        let averageGrade = (sum / length).toFixed(2);
+        console.log(`Average annual score from last year: ${averageGrade}`);
+        console.log();
+    }
+}
+
+// 06. Browser History
+function browserHistory(dataObj, dataArr) {
+
+    let dataObject =  dataObj;
+    let commands = dataArr;
+
+    for (let c of commands) {
+        let command = c.substring(0, c.indexOf(' '));
+        let site = c.substring(c.indexOf(' ') + 1);
+
+        if (command === 'Open') {
+            dataObject['Open Tabs'].push(site);
+            dataObject['Browser Logs'].push(c);
+        }
+        else if (command === 'Close') {
+            if (dataObject['Open Tabs'].includes(site)) {
+                let index = dataObject['Open Tabs'].indexOf(site);
+                dataObject['Open Tabs'].splice(index, 1);
+                dataObject['Browser Logs'].push(c);
+                dataObject['Recently Closed'].push(site);
+            }
+        }
+        else {
+            dataObject['Open Tabs'] = [];
+            dataObject['Recently Closed'] = [];
+            dataObject['Browser Logs'] = [];
+        }
+    }
+    console.log(dataObject['Browser Name']);
+    console.log(`Open Tabs: ${dataObject['Open Tabs'].join(', ')}`);
+    console.log(`Recently Closed: ${dataObject['Recently Closed'].join(', ')}`);
+    console.log(`Browser Logs: ${dataObject['Browser Logs'].join(', ')}`);
+}
+
+// 07. Sequences
+function sequences(input) {
+    let line = []; let lineAsStrings = [];
+    for (let el of input) {
+        el = el.replace(/\[|\]/g,'')
+               .split(',')
+               .map(x => Number(x))
+               .sort((a, b) => b - a, 0);
+        if (!lineAsStrings.includes(el.toString())) {
+            line.push(el);
+            lineAsStrings.push(el.toString());
+        }
+    }
+    line = line.sort((a, b) => a.length - b.length);
+    for (let arr of line) {
+        console.log(`[${arr.join(', ')}]`);
+    }
+}
+
+// 08. Garage
+function garage(input) {
+    let info = {};
+    for (let data of input) {
+        let [garageNumber, carInfo] = data.split(' - ');
+        garageNumber = Number(garageNumber);
+        carInfo = carInfo.split(', ');
+        if (!info.hasOwnProperty(garageNumber)) {
+            info[garageNumber] = [];
+        }
+        let newCar = {};
+        for (element of carInfo) {
+            let [key, value] = element.split(': ');
+            newCar[key] = value;
+        }
+        info[garageNumber].push(newCar);
+    }
+    for (let garage in info) {
+        console.log(`Garage № ${garage}`);
+        for (let car of info[garage]) {
+            let result = [];
+            for (let prop in car) {
+                result.push(`${prop} - ${car[prop]}`);
+            }
+            console.log(`--- ${result.join(', ')}`);
+        }
+    }
+}
+
+// 09. Armies
+function armies(input) {
+    let armies = {};
+    for (let element of input) {
+        if (element.includes('arrives')) {
+            let leader = element.replace(' arrives', '');
+            armies[leader] = {};
+        }
+        else if (element.includes(': ')) {
+            let [current_leader, info] = element.split(': ');
+            if (armies.hasOwnProperty(current_leader)) {
+                let [armyName, armyCount] = info.split(', ');
+                armyCount = Number(armyCount);
+                armies[current_leader][armyName] = armyCount;
+            }
+        }
+        else if (element.includes(' + ')) {
+            let [armyName, armyCount] = element.split(' + ');
+            for (let boss in armies) {
+                let army = armies[boss];
+                if (army.hasOwnProperty(armyName)) {
+                    army[armyName] += Number(armyCount);
+                    break;
+                }
+            }
+        }
+        else if (element.includes(' defeated')) {
+            let boss = element.replace(' defeated', '');
+            if (armies.hasOwnProperty(boss)) {
+                delete armies[boss];
+            }
+        }
+    }
+    for (let boss in armies) {
+        let totalArmiesCount = 0;
+        for (let army in armies[boss]) {
+            totalArmiesCount += armies[boss][army];
+        }
+        armies[boss]['TotalArmiesCount'] = totalArmiesCount;
+    }
+
+    armies = Object.entries(armies);
+    for (let army of armies) {
+        army[1] = Object.entries(army[1]);
+    }
+    armies = armies.sort((a, b) => b[1][b[1].length - 1][1] - a[1][a[1].length - 1][1]);
+
+    for (let a of armies) {
+        console.log(`${a[0]}: ${a[1][a[1].length - 1][1]}`);
+        delete a[1][a[1].length - 1];
+        a[1] = a[1].sort((x, y) => y[1] - x[1]);
+        for (let i = 0; i < (a[1].length - 1); i++) {
+            console.log(`>>> ${a[1][i][0]} - ${a[1][i][1]}`);
+        }
+    }
+}
+
+// 10. Comments
+function comments(input) {
+    let usersList = []; let articlesList = []; let data = {};
+    for (let string of input) {
+        if (string.includes('user ')) {
+            let userName = string.replace('user ', '');
+            if (!usersList.includes(userName)) {
+                usersList.push(userName);
+            }
+        }
+        else if (string.includes('article ')) {
+            let article = string.replace('article ', '');
+            if (!data.hasOwnProperty(article)) {
+                data[article] = [];
+            }
+        }
+        else if (string.includes(' posts on ')) {
+            let [userArticleInfo, commentInfo] = string.split(': ');
+            let [currentUser, currentArticle] = userArticleInfo.split(' posts on ');
+            let [commentTitle, commentContent] = commentInfo.split(', ');
+            if (usersList.includes(currentUser) && data.hasOwnProperty(currentArticle)) {
+                data[currentArticle].push([currentUser, `${commentTitle} - ${commentContent}`]);
+            }
+        }
+    }
+    data = Object.entries(data);
+    data = data.sort((a, b) => b[1].length - a[1].length);
+
+    for (let article of data) {
+        article[1] = article[1].sort((a, b) => a[0].localeCompare(b[0]));
+    }
+    for (let article of data) {
+        console.log(`Comments on ${article[0]}`);
+        for (let userComment of article[1]) {
+            console.log(`--- From user ${userComment[0]}: ${userComment[1]}`)
+        }
+    }
+}
+
+// 11. Book Shelf
+function bookShelf(input) {
+    let shelves = {}; let genres = {}
+    for (let data of input) {
+        if (data.includes(' -> ')) {
+            let[id, genre] = data.split(' -> ');
+            if (!shelves.hasOwnProperty(id)) {
+                shelves[id] = genre;
+                genres[genre] = [];
+            }
+        }
+        else if (data.includes(': ')) {
+            let [bookTitle, bookAttributes] = data.split(': ');
+            let [bookAuthor, bookGenre] = bookAttributes.split(', ');
+            if (Object.values(shelves).includes(bookGenre)) {
+                genres[bookGenre].push([bookTitle, bookAuthor]);
+            }
+        }
+    }
+    genres = Object.entries(genres);
+    genres = genres.sort((a, b) => b[1].length - a[1].length);
+    for (let genre of genres) {
+        let books = genre[1];
+        books = books.sort((a, b) => a[0].localeCompare(b[0]));
+    }
+    for (let g of genres) {
+        let key = Object.keys(shelves).find(key => shelves[key] === g[0]);
+        console.log(`${key} ${g[0]}: ${g[1].length}`);
+        let books = g[1];
+        for (let book of books) {
+            console.log(`--> ${book[0]}: ${book[1]}`);
+        }
+    }
+}
+
+// 12. SoftUni Students
+function softUniStudents(input) {
+    let courses = {}; let students = {};
+    for (let data of input) {
+        if (data.includes(': ')) {
+            let [course, capacity] = data.split(': ');
+            if (!courses.hasOwnProperty(course)) {
+                courses[course] = [0, []];
+            }
+            courses[course][0] += Number(capacity);
+        }
+        else {
+            data = data.replace(' with email ', ' ');
+            data = data.replace(' joins ', ' ');
+            let [user, email, courseName] = data.split(' ');
+            user = user.replace(']', '');
+            let [userName, credits] = user.split('[');
+
+            if (courses.hasOwnProperty(courseName) && courses[courseName][0] > courses[courseName][1].length) {
+                courses[courseName][1].push([credits, userName, email]);
+                if (!students.hasOwnProperty(userName)) {
+                    students[userName] = [credits, email];
+                }
+            }
+        }
+    }
+    courses = Object.entries(courses);
+    courses = courses.sort((a, b) => b[1][1].length - a[1][1].length);
+    for (let c of courses) {
+        let students = c[1][1];
+        students = students.sort((a, b) => b[0] - a[0]);
+    }
+    for (let course of courses) {
+        let placesLeft = course[1][0] - course[1][1].length;
+        console.log(`${course[0]}: ${placesLeft} places left`);
+        let members = course[1][1];
+        for (let member of members) {
+            console.log(`--- ${member[0]}: ${member[1]}, ${member[2]}`);
+        }
+    }
+}
