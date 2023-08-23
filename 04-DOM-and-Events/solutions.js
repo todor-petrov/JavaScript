@@ -1,3 +1,5 @@
+// // // Lab
+
 // 01. Sum Numbers
 function calc() {
     const firstNumber = Number(document.getElementById('num1').value);
@@ -133,4 +135,39 @@ function focused() {
             parentDiv.classList.remove('focused');
         }
     }
+}
+
+
+// // // Exercises
+
+
+// 01. Subtraction
+function subtract() {
+    const firstNumberField = document.getElementById('firstNumber');
+    const secondNumberField = document.getElementById('secondNumber');
+    const result = document.getElementById('result');
+    result.textContent = Number(firstNumberField.value) - Number(secondNumberField.value);
+}
+
+
+// 02. Sections
+function create(words) {
+   const divContent = document.getElementById('content');
+   for (let word of words) {
+      let div = htmlCreator('div', divContent);
+      let p = htmlCreator('p', div, word);
+      div.addEventListener('click', loadWordHandler);
+      p.style.display = 'none';
+   }
+   function loadWordHandler() {
+      this.firstChild.style.display = 'block';
+   }
+   function htmlCreator(type, parentNode, textContent) {
+      let htmlElement = document.createElement(type);
+      parentNode.appendChild(htmlElement);
+      if (textContent) {
+         htmlElement.textContent = textContent;
+      }
+      return htmlElement;
+   }
 }
