@@ -171,3 +171,41 @@ function create(words) {
       return htmlElement;
    }
 }
+
+
+// 03. Accordion
+function toggle() {
+    const btn = document.querySelector('#accordion > div.head > span');
+    if (btn.textContent === 'More') {
+        btn.textContent = 'Less';
+        document.getElementById('extra').style.display = 'block';
+    }
+    else {
+        btn.textContent = 'More';
+        document.getElementById('extra').style.display = 'none';
+    }
+}
+
+
+// 04. Locked Profile
+function lockedProfile() {
+    const buttons = Array.from(document.getElementsByTagName('button'));
+    for (let btn of buttons) {
+        btn.addEventListener('click', showHideHandler);
+    }
+    function showHideHandler() {
+        let profileDiv = this.parentNode;
+        let hiddenDiv = profileDiv.getElementsByTagName('div')[0];
+        let radioBtn = profileDiv.getElementsByTagName('input')[0];
+        if (!radioBtn.checked) {
+            if (this.textContent === 'Show more') {
+                this.textContent = 'Hide it';
+                hiddenDiv.style.display = 'block';
+            }
+            else {
+                this.textContent = 'Show more';
+                hiddenDiv.style.display = 'none';
+            }
+        }
+    }
+}
