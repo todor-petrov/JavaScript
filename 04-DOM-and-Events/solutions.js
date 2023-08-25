@@ -245,3 +245,93 @@ function solve() {
       substringField.value = '';
    }
 }
+
+
+// 07. Format the Text
+function solve() {
+  const output = document.getElementById('output');
+  const textarea = document.getElementById('input');
+  let sentences = textarea.value.split('.');
+  sentences.pop();
+
+  while (sentences.length > 0) {
+    let paragraphSentences = sentences.splice(0, 3)
+      .map((p) => p.trimStart());
+      const newParagraph = document.createElement('p');
+      newParagraph.textContent = paragraphSentences.join('.') + '.';
+      output.appendChild(newParagraph);
+  }
+}
+
+
+// 08. Furniture
+function solve() {
+  const generateBtn = document.querySelector('#exercise > button:nth-child(3)');
+  const textareaField = document.querySelector('#exercise > textarea:nth-child(2)');
+  const tbody = document.querySelector('#exercise > div > div > div > div > table > tbody');
+  const buyBtn = document.querySelector('#exercise > button:nth-child(6)');
+  const resultTextBox = document.querySelector('#exercise > textarea:nth-child(5)');
+  let tableRows = tbody.getElementsByTagName('tr');
+  let checkboxes = Array.from(document.getElementsByTagName('input'));
+  checkboxes.map((checkbox) => checkbox.disabled = false);
+  generateBtn.addEventListener('click', loadRowsHandler);
+  buyBtn.addEventListener('click', showResultHandler);
+
+  let boughtFurniture = []; let totalPrice = 0; let allDecFactors = [];
+
+  function loadRowsHandler() {
+    let data = JSON.parse(textareaField.value);
+    if (data) {
+      for (let object of data) {
+        let name = object['name']; let imgSrc = object['img'];
+        let price = object['price']; let decFactor = object['decFactor'];
+        let tr = htmlCreator('tr', tbody);
+        let imgTd = htmlCreator('td', tr);
+        let img = htmlCreator('img', imgTd); img.src = imgSrc;
+        let nameTd = htmlCreator('td', tr);
+        htmlCreator('p', nameTd, name);
+        let priceTd = htmlCreator('td', tr);
+        htmlCreator('p', priceTd, price);
+        let decorationTd = htmlCreator('td', tr);
+        htmlCreator('p', decorationTd, decFactor);
+        let checkboxTd = htmlCreator('td', tr);
+        let input = htmlCreator('input', checkboxTd);
+        input.type = 'checkbox';
+      }
+      textareaField.value = '';
+    }
+  }
+  function showResultHandler() {
+    let productsToBuy = false;
+    for (let tr of tableRows) {
+      let checkbox = tr.getElementsByTagName('input')[0];
+      let name = tr.getElementsByTagName('p')[0].textContent;
+      let price = Number(tr.getElementsByTagName('p')[1].textContent);
+      let decFactor = Number(tr.getElementsByTagName('p')[2].textContent);
+      console.log(name); console.log(price); console.log(decFactor);
+      if (checkbox.checked) {
+        boughtFurniture.push(name); totalPrice += price; allDecFactors.push(decFactor);
+        productsToBuy = true;
+      }
+    }
+    if (productsToBuy) {
+      let avgDecFactor = allDecFactors.reduce((a, b) => a + b, 0) / allDecFactors.length;
+    let result = [];
+    result.push(`Bought furniture: ${boughtFurniture.join(', ')}`);
+    result.push(`Total price: ${totalPrice.toFixed(2)}`);
+    result.push(`Average decoration factor: ${avgDecFactor}`);
+    resultTextBox.value = result.join('\n');
+    }
+    else {
+      return;
+    }
+  }
+  function htmlCreator(type, parentNode, textContent) {
+    let htmlElement = document.createElement(type);
+    parentNode.appendChild(htmlElement);
+    if (textContent) {
+      htmlElement.textContent = textContent;
+    }
+    return htmlElement
+  }
+}
