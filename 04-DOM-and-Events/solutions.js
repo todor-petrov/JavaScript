@@ -209,3 +209,39 @@ function lockedProfile() {
         }
     }
 }
+
+
+// 05. Fill Dropdown
+function addItem() {
+    const textField = document.getElementById('newItemText');
+    const valueField = document.getElementById('newItemValue');
+    const select = document.getElementById('menu');
+    let option = document.createElement('option');
+    option.textContent = textField.value; option.value = valueField.value;
+    select.appendChild(option);
+    textField.value = ''; valueField.value = '';
+}
+
+
+// 06. Table – Search Engine
+function solve() {
+   document.querySelector('#searchBtn').addEventListener('click', onClick);
+
+   function onClick() {
+      const tbody = document.querySelector('body > table > tbody');
+      const tableRows = Array.from(document.getElementsByTagName('tr'));
+      const substringField = document.getElementById('searchField');
+      let substring = substringField.value;
+      for (let row of tableRows) {
+         if (row.classList.contains('select')) {
+            row.classList.remove('select');
+         }
+      }
+      for (let row of tableRows) {
+         if (row.textContent.includes(substring)) {
+            row.classList.add('select');
+         }
+      }
+      substringField.value = '';
+   }
+}
