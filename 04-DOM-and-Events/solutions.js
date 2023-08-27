@@ -335,3 +335,15 @@ function solve() {
     return htmlElement
   }
 }
+
+
+// // // More Exercises
+
+// 01. Edit Element
+function editElement(ref, match, replacer) {
+    let text = ref.textContent;
+    while (text.includes(match)) {
+        text = text.replace(match, replacer);
+    }
+    ref.textContent = text;
+}
