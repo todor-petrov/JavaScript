@@ -347,3 +347,10 @@ function editElement(ref, match, replacer) {
     }
     ref.textContent = text;
 }
+
+// 02. Extract Parenthesis
+function extract(content) {
+    let text = document.getElementById('content').textContent;
+    let matches = text.match(/\(([^()]*)\)/g).map(function($0) { return $0.substring(1,$0.length-1) });
+    return matches.join('; ');
+}
