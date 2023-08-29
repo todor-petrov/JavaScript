@@ -401,3 +401,24 @@ function solve() {
        buttons.forEach(button => button.disabled = true);
     }
 }
+
+// 06. Pascal or Camel Case
+function solve() {
+  const text = document.querySelector("#text").value.split(' ');
+  const convention = document.getElementById('naming-convention').value;
+  const result = document.querySelector("#result");
+  let availableConventions = ['Camel Case', 'Pascal Case'];
+  let conversedText = '';
+  if (availableConventions.includes(convention)) {
+    for (let i = 0; i < text.length; i++) {
+      conversedText += (text[i].charAt(0).toUpperCase() + text[i].slice(1).toLowerCase());
+    }
+    if (convention === 'Camel Case') {
+      conversedText = conversedText.charAt(0).toLowerCase() + conversedText.slice(1);
+    }
+  }
+  else {
+    conversedText = 'Error!'
+  }
+  result.textContent = conversedText;
+}
