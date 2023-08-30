@@ -422,3 +422,29 @@ function solve() {
   }
   result.textContent = conversedText;
 }
+
+// 07. Search in List
+function search() {
+   const searchArea = document.querySelector('#searchText');
+   searchArea.addEventListener('click', refreshHandler);
+   const towns = document.querySelectorAll('#towns > li');
+   function refreshHandler(event) {
+      searchArea.value = '';
+      result.textContent = '';
+      for (let i = 0; i < towns.length; i++) {
+         towns[i].style = {};
+      }
+   }
+   const searchText = searchArea.value;
+   const result = document.getElementById('result');
+   let matches = 0;
+   result.textContent = '';
+   for (let town of towns) {
+      if (town.textContent.includes(searchText)) {
+         town.style.fontWeight = 'bold';
+         town.style.textDecoration = 'underline';
+         matches += 1;
+      }
+   }
+   result.textContent = `${matches} matches found`;
+}
