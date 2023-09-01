@@ -448,3 +448,54 @@ function search() {
    }
    result.textContent = `${matches} matches found`;
 }
+
+// 08. Hells Kitchen
+function solve() {
+   document.querySelector('#btnSend').addEventListener('click', onClick);
+
+   function onClick () {
+      const line = JSON.parse(document.querySelector("#inputs > textarea").value);
+      const bestRestaurantOutput = document.querySelector("#bestRestaurant > p");
+      const workersOutput = document.querySelector("#workers > p");
+      let restaurants = {};
+      for (let i = 0; i < line.length; i++) {
+         let [restaurant, workers] = line[i].split(' - ');
+         if (!restaurants.hasOwnProperty(restaurant)) {
+            restaurants[restaurant] = [];
+         }
+         workers = workers.split(', ');
+         for (let worker of workers) {
+            let [name, salary] = worker.split(' ');
+            let currentWorker = [];
+            currentWorker.push(name);
+            currentWorker.push(Number(salary));
+            restaurants[restaurant].push(currentWorker);
+         }
+      }
+      restaurants = Object.entries(restaurants);
+      for (let i = 0; i < restaurants.length; i++) {
+         let avgSalary = 0;
+         for (let j = 0; j < restaurants[i][1].length; j++) {
+            avgSalary += restaurants[i][1][j][1];
+         }
+         restaurants[i].push(avgSalary / restaurants[i][1].length);
+      }
+      let sorted = restaurants.sort((a, b) => b[2] - a[2]);
+      let bestRestaurantData = sorted[0];
+      console.log(bestRestaurantData);
+      let workers = bestRestaurantData[1];
+      let sortedWorkers = workers.sort((a, b) => b[1] - a[1]);
+      let restaurantName = bestRestaurantData[0];
+      let averageSalary = bestRestaurantData[2];
+      let bestSalary = sortedWorkers[0][1];
+      let result = `Name: ${restaurantName} Average Salary: ${averageSalary.toFixed(2)} Best Salary: ${bestSalary.toFixed(2)}`;
+      console.log(result);
+      let secondResult = [];
+      for (let w of sortedWorkers) {
+         secondResult.push(`Name: ${w[0]} With Salary: ${w[1]}`);
+      }
+      let workersInfo = secondResult.join(' ');
+      bestRestaurantOutput.textContent = result;
+      workersOutput.textContent = workersInfo;
+   }
+}
