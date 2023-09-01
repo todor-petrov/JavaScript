@@ -499,3 +499,30 @@ function solve() {
       workersOutput.textContent = workersInfo;
    }
 }
+
+// 09. Generate Report
+function generateReport() {
+    const inputs = Array.from(document.getElementsByTagName('input'));
+    const tableRows = Array.from(document.querySelectorAll('tbody > tr'));
+    const textarea = document.getElementById('output');
+    let checkedInputs = inputs.filter((input) => input.checked);
+    let checkedNames = checkedInputs.map((input) => input.name);
+    let checkedIndices = []; let data = [];
+    for (let input of inputs) {
+        if (checkedNames.includes(input.name)) {
+            let index = inputs.indexOf(input);
+            checkedIndices.push(index);
+        }
+    }
+    for (let tableRow of tableRows) {
+        let cells = Array.from(tableRow.getElementsByTagName('td'));
+        let object = {};
+        for (let i = 0; i < cells.length; i++) {
+            if (checkedIndices.includes(i)) {
+                object[inputs[i].name] = cells[i].textContent;
+            }
+        }
+        data.push(object);
+    }
+    textarea.textContent = JSON.stringify(data);
+}
