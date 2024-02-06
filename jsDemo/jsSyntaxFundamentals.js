@@ -345,3 +345,22 @@ function cookingByNumbers(num, ...operations) {
     }
 }
 */
+
+
+// 01. Validity Checker
+/*
+function validityChecker(x1, y1, x2, y2) {
+
+    let firstCheck = Math.sqrt((0 - x1) ** 2 + (0 - y1) ** 2)
+    let secondCheck = Math.sqrt((0 - x2) ** 2 + (0 - y2) ** 2)
+    let thirdCheck = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+
+    let firstResult = Number.isInteger(firstCheck) ? 'valid' : 'invalid'
+    let secondResult = Number.isInteger(secondCheck) ? 'valid' : 'invalid'
+    let thirdResult = Number.isInteger(thirdCheck) ? 'valid' : 'invalid'
+
+    console.log(`{${x1}, ${y1}} to {0, 0} is ${firstResult}`)
+    console.log(`{${x2}, ${y2}} to {0, 0} is ${secondResult}`)
+    console.log(`{${x1}, ${y1}} to {${x2}, ${y2}} is ${thirdResult}`)
+}
+*/
