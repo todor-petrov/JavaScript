@@ -364,3 +364,13 @@ function validityChecker(x1, y1, x2, y2) {
     console.log(`{${x1}, ${y1}} to {${x2}, ${y2}} is ${thirdResult}`)
 }
 */
+
+
+// 02. Words Uppercase
+/*
+function wordsUppercase(inputString) {
+    let pattern = /\w+/g
+    let words = inputString.match(pattern)
+    console.log(String(words).toUpperCase().split(',').join(', '))
+}
+*/
