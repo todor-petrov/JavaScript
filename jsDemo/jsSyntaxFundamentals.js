@@ -374,3 +374,66 @@ function wordsUppercase(inputString) {
     console.log(String(words).toUpperCase().split(',').join(', '))
 }
 */
+
+
+// 03. Calculator
+/*
+function calculator(firstNumber, operation, secondNumber) {
+
+    const add = (firstNumber, secondNumber) => firstNumber + secondNumber
+    const subtract = (firstNumber, secondNumber) => firstNumber - secondNumber
+    const divide = (firstNumber, secondNumber) => firstNumber / secondNumber
+    const multiply = (firstNumber, secondNumber) => firstNumber * secondNumber
+
+    let operations = {'+': add, '-': subtract, '/': divide, '*': multiply}
+
+    console.log(operations[operation](firstNumber, secondNumber).toFixed(2))
+}
+*/
+
+
+// 04. Gladiator Expenses
+/*
+function gladiatorExpenses(lostFightsCount, helmetPrice, swordPrice, shieldPrice, armorPrice) {
+    let expenses = 0
+    let shielsBreaksCount = 0
+    for (let i = 1; i <= lostFightsCount; i++) {
+        if (i % 2 === 0) {expenses += helmetPrice}
+        if (i % 3 === 0) {expenses += swordPrice}
+        if (i % 6 === 0) {
+            expenses += shieldPrice
+            shielsBreaksCount += 1
+            if (shielsBreaksCount % 2 === 0) {expenses += armorPrice}
+        }
+    }
+    console.log(`Gladiator expenses: ${expenses.toFixed(2)} aureus`)
+}
+*/
+
+
+// 05. Spice Must Flow
+/*
+function spiceMustFlow(yield) {
+
+    const YIELD_DAILY_DECREASING = 10
+    const CREW_DAILY_CONSUMPTION = 26
+    let days = 0
+    let spiceMined = 0
+
+    while (100 <= yield) {
+        days += 1
+        spiceMined += yield
+        spiceMined -= CREW_DAILY_CONSUMPTION
+        yield -= YIELD_DAILY_DECREASING
+    }
+
+    if (CREW_DAILY_CONSUMPTION <= spiceMined) {
+        spiceMined -= CREW_DAILY_CONSUMPTION
+    } else {
+        spiceMined = 0
+    }
+
+    console.log(`${days}`)
+    console.log(`${spiceMined}`)
+}
+*/
