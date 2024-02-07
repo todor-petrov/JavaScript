@@ -63,3 +63,58 @@ function countStringOccurrences(text, word) {
 */
 
 
+// 01. Array Rotation
+/*
+function arrayRotation(inputArray, rotations) {
+
+    for (let i = 0; i < rotations; i++) {
+        inputArray.push(inputArray.shift())
+    }
+    console.log(inputArray.join(' '))
+}
+*/
+
+
+// 02. Print every N-th Element from an Array
+/*
+function printEveryNthElement(stringsArray, step) {
+
+    let output = []
+
+    for (let i = 0; i < stringsArray.length; i+= step) {
+        output.push(stringsArray[i])
+    }
+
+    return output
+}
+*/
+
+
+// 03. List of Names
+/*
+function listOfNames(namesArray) {
+    let output = namesArray.sort((a, b) => a.localeCompare(b))
+    for (let i = 0; i < output.length; i++) {
+        console.log(`${i + 1}.${output[i]}`)
+    }
+}
+*/
+
+
+// 04. Sorting Numbers
+/*
+function sortingNumbers(nums) {
+
+    let numbers = nums.sort((a, b) => a - b)
+    let output = []
+
+    while (0 < numbers.length) {
+        output.push(numbers.shift())
+        if (numbers.length !== 0) {
+            output.push(numbers.pop())
+        }
+    }
+
+    return output
+}
+*/
