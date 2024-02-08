@@ -175,3 +175,33 @@ function pascalCaseSplitter(text) {
     console.log(result.join(', '))
 }
 */
+
+
+// 01. Login
+/*
+function login(data) {
+
+    const username = data.shift()
+    const INCORRECT_PASSWORD_COUNTER = 4
+    let counter = 0
+    
+
+    for (let i = 0; i < data.length; i++) {
+
+        if (username === data[i].split('').reverse().join('')) {
+            console.log(`User ${username} logged in.`)
+            break
+        }
+        else {
+            counter += 1
+            if (INCORRECT_PASSWORD_COUNTER <= counter) {
+                console.log(`User ${username} blocked!`)
+                break
+            }
+            else {
+                console.log(`Incorrect password. Try again.`)
+            }
+        }
+    }
+}
+*/
