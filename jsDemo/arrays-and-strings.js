@@ -118,3 +118,60 @@ function sortingNumbers(nums) {
     return output
 }
 */
+
+
+// 05. Reveal Words
+/*
+function revealWords(words, text) {
+
+    words = words.split(',').map((x) => x.trim())
+    text = text.split(' ')
+    for (let i = 0; i < words.length; i++) {
+        for (let j = 0; j < text.length; j++) {
+            if (words[i].length === text[j].length && text[j].includes('*')) {
+                text[j] = words[i]
+            }
+        }
+    }
+    console.log(text.join(' '))
+}
+*/
+
+
+// 06. Modern Times of #(HashTag)
+/*
+function modernTimesOfHashTag(text) {
+    regex = /#[a-zA-z]+/g
+    let matches = text.match(regex)
+    let output = matches.map((x) => x.replace('#', ''))
+    console.log(output.join('\n'))
+}
+*/
+
+
+// 07. String Substring
+/*
+function stringSubstring(word, text) {
+
+    text = text.split(' ').map((x) => x.toLowerCase())
+    let wordIsNotFound = true
+    for (let i = 0; i < text.length; i++) {
+        if (text[i] === word) {
+            wordIsNotFound = false
+            break
+        }
+    }
+    wordIsNotFound ? console.log(`${word} not found!`) : console.log(word)
+}
+*/
+
+
+// 08. Pascal-Case Splitter
+/*
+function pascalCaseSplitter(text) {
+
+    const result = text.split(/(?=[A-Z])/);
+
+    console.log(result.join(', '))
+}
+*/
