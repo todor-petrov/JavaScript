@@ -225,3 +225,24 @@ function factorialDivision(a, b) {
 
 factorialDivision(5, 2)
 */
+
+
+// 01. Car Wash
+/*
+function carWash(commands) {
+
+    let value = 0
+    let soap = () => value += 10
+    let water = () => value *= 1.2
+    let vacuumCleaner = () => value *= 1.25
+    let mud = () => value * 0.9
+    let operations = {'soap': soap, 'water': water, 'vacuum cleaner': vacuumCleaner, 'mud': mud}
+
+    for (let i = 0; i < commands.length; i++) {
+        value = operations[commands[i]](value)
+    }
+
+    console.log(`The car is ${value.toFixed(2)}% clean.`)
+}
+*/
+
