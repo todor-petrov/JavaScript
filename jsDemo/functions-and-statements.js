@@ -246,3 +246,42 @@ function carWash(commands) {
 }
 */
 
+
+// 02. Number Modificator
+/*
+function numberModificator (number) {
+    const maxAverageValue = 5
+    const additionalNumber = 9
+    let numberAsArray = number.toString().split('').map((x) => Number(x))
+    
+    let averageSumDigits = (numberAsArray) =>
+    numberAsArray.reduce((a, b) => a + b) / numberAsArray.length
+
+    while (averageSumDigits(numberAsArray) < maxAverageValue) {
+        numberAsArray.push(additionalNumber)
+    }
+    console.log(numberAsArray.join(''))
+}
+*/
+
+
+// 03. Points Validation
+/*
+function pointsValidation([x1, y1, x2, y2]) {
+
+    let trueOutput = (x1, y1, x2, y2) => `{${x1}, ${y1}} to {${x2}, ${y2}} is valid`
+    let falseOutput = (x1, y1, x2, y2) => `{${x1}, ${y1}} to {${x2}, ${y2}} is invalid`
+
+    let firstCheck = Math.sqrt(Math.pow(x1, 2) + Math.pow(y1, 2))
+    Number.isInteger(firstCheck) ?
+    console.log(trueOutput(x1, y1, 0, 0)) : console.log(falseOutput(x1, y1, 0, 0))
+
+    let secondCheck = Math.sqrt(Math.pow(x2, 2) + Math.pow(y2, 2))
+    Number.isInteger(secondCheck) ?
+    console.log(trueOutput(x2, y2, 0, 0)) : console.log(falseOutput(x2, y2, 0, 0))
+
+    let thirdCheck = Math.sqrt(Math.abs(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)))
+    Number.isInteger(thirdCheck) ?
+    console.log(trueOutput(x1, y1, x2, y2)) : console.log(falseOutput(x1, y1, x2, y2))
+}
+*/
